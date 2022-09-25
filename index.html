@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Coda:wght@800&family=La+Belle+Aurore&family=Mrs+Sheppards&family=Titillium+Web:wght@200;300;400;600;700;900&display=swap" rel="stylesheet">    <link rel="stylesheet" href="src/style.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="https://kit.fontawesome.com/0050fcb5b5.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+        <div class="main-text-wrapper">
+        <form class="search-a-city" id="search-engine">
+            <input type="text" class="search-input" id="inputted-city" placeholder="Enter a city">
+            <input type="submit" class="search-button" value="Search">
+            <i class="fa-solid fa-compass location-icon" id="currentLocationIcon"></i>
+        </form>
+        <div class="row">
+            <div class="col-6">
+        <h1>KYIV</h1>
+        <h2>Monday 02:10</h2>
+        <p class="current-temperature">
+            <i class="fa-regular fa-sun weather-icon-main"></i> </br>
+            clear, <span class="currentDegrees" id="converting-value">19</span>°<span class="degreesType" id="degrees-celsius">C</span>/<span class="degreesType" id="degrees-fahrenheit">F</span></br>
+            H: <span class="highNow" id="highest-today">19</span>° / L: <span class="lowNow" id="lowest-today">19</span>°
+        </p>
+        </div>
+        <div class="col-6">
+        <p class="current-conditions">
+            <span class="conditions-text" >Feels Like:</span> <span id="feels-like">19</span>°C <br> 
+            <span class="conditions-text" >Wind:</span> <span id="wind-speed">2.57</span> m/s <br> 
+            <span class="conditions-text" >Humidity:</span> <span id="humidity-now">31</span>% <br> 
+            <span class="conditions-text" >Pressure:</span> <span id="pressure-now">1010</span> hPa
+        </p>
+        <div class="note-for-today">
+            <i class="fa-regular fa-hand-point-right"></i> Don't forget your sunglasses 
+        </div>
+        </div>
+        </div>
+<div class="row">
+    <div class="col weather-days">
+        Tuesday <br>
+        <i class="fa-regular fa-sun weather-icon-days"></i> <br>
+        30°/20°
+    </div>
+    <div class="col weather-days">
+        Wednesday <br>
+        <i class="fa-regular fa-sun weather-icon-days"></i> <br>
+        31°/20°
+    </div>
+    <div class="col weather-days">
+        Thursday <br>
+        <i class="fa-solid fa-cloud-sun weather-icon-days"></i><br>
+        28°/18°
+    </div>
+    <div class="col weather-days">
+        Friday <br>
+        <i class="fa-solid fa-cloud weather-icon-days"></i> <br>
+        27°/16°
+    </div>
+    <div class="col weather-days">
+        Saturday <br>
+        <i class="fa-solid fa-cloud-showers-heavy weather-icon-days"></i> <br>
+        25°/15°
+    </div>
+</div>
+<footer>
+        <p>Coded by Maria Koval</p>
+    </footer>
+    </div>
+    </div>
+    <script src="src/script.js"></script>
+  </body>
+</html>
