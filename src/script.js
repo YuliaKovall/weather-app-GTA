@@ -124,7 +124,6 @@ function showCurrentWeather(response, event) {
 }
 function getSearchCity(event) {
   event.preventDefault();
-
   let apiKey = "1e3dbdc7f40fe05d77910ebef7bfd128";
   let citySearch = document.querySelector("#inputted-city");
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearch.value}&units=metric&appid=${apiKey}`;
