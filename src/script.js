@@ -24,7 +24,7 @@ function updateDateTime() {
   h2.innerHTML = currentDay + ", " + hours + ":" + minutes;
 }
 updateDateTime();
-setInterval(updateDateTime, 60000);
+setInterval(updateDateTime, 0);
 
 // shows current temperature in the city from search
 function showCurrentWeather(response, event) {
@@ -52,6 +52,7 @@ function showCurrentWeather(response, event) {
   lowestTempToday.innerHTML = tempLowerToday;
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
+  celciusTemp = Math.round(response.data.main.temp);
   if (response.data.weather[0].id == 800) {
     document.querySelector("#weather-icon-main").innerHTML =
       '<img src="src/sun.png" width="60px">';
@@ -153,6 +154,7 @@ function showWeather(response) {
   pressure.innerHTML = response.data.main.pressure;
   highestTempToday.innerHTML = tempHigherToday;
   lowestTempToday.innerHTML = tempLowerToday;
+  celciusTemp = Math.round(response.data.main.temp);
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
   if (response.data.weather[0].id == 800) {
@@ -239,20 +241,24 @@ let geoButton = document.querySelector("#currentLocationIcon");
 geoButton.addEventListener("click", getPosition);
 
 // change degrees
-function temperatureConverter(event) {
-  event.preventDefault();
-  let fahrenheit = (currentDegrees * 9) / 5 + 32;
-  let currentDegrees = document.querySelector("#converting-value");
-  currentDegrees.innerHTML = fahrenheit;
-}
-let frDegree = document.querySelector("#degrees-fahrenheit");
-frDegree.addEventListener("click", temperatureConverter);
 
-function temperatureConverter2(event) {
+function displayFarenheitTemperature(event) {
   event.preventDefault();
-
-  let currentDegrees = document.querySelector("#converting-value");
-  currentDegrees.innerHTML = currentDegrees;
+  let fahrenheitTemp = (celciusTemp * 9) / 5 + 32;
+  let temperatureElement = document.querySelector("#converting-value");
+  temperatureElement.innerHTML = Math.round(fahrenheitTemp);
 }
+
+function displayCelciusTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#converting-value");
+  temperatureElement.innerHTML = Math.round(celciusTemp);
+}
+
+let celciusTemp = null;
+
 let csDegree = document.querySelector("#degrees-celsius");
-csDegree.addEventListener("click", temperatureConverter2);
+csDegree.addEventListener("click", displayCelciusTemperature);
+
+let frDegree = document.querySelector("#degrees-fahrenheit");
+frDegree.addEventListener("click", displayFarenheitTemperature);
