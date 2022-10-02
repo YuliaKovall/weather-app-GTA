@@ -24,25 +24,7 @@ function updateDateTime() {
   h2.innerHTML = currentDay + ", " + hours + ":" + minutes;
 }
 updateDateTime();
-
-// change degrees
-function temperatureConverter(event) {
-  event.preventDefault();
-  let fahrenheit = (19 * 9) / 5 + 32;
-  let currentDegrees = document.querySelector("#converting-value");
-  currentDegrees.innerHTML = fahrenheit;
-}
-let frDegree = document.querySelector("#degrees-fahrenheit");
-frDegree.addEventListener("click", temperatureConverter);
-
-function temperatureConverter2(event) {
-  event.preventDefault();
-  let celsius = 19;
-  let currentDegrees = document.querySelector("#converting-value");
-  currentDegrees.innerHTML = celsius;
-}
-let csDegree = document.querySelector("#degrees-celsius");
-csDegree.addEventListener("click", temperatureConverter2);
+setInterval(updateDateTime, 60000);
 
 // shows current temperature in the city from search
 function showCurrentWeather(response, event) {
@@ -50,7 +32,6 @@ function showCurrentWeather(response, event) {
   let h1 = document.querySelector("h1");
   let currentDegrees = document.querySelector("#converting-value");
   let temperature = Math.round(response.data.main.temp);
-  let conditions = document.querySelector("#cur-cond");
   let tempFeelsLike = Math.round(response.data.main.feels_like);
   let feelsLike = document.querySelector("#feels-like");
   let windSpeed = document.querySelector("#wind-speed");
@@ -63,7 +44,6 @@ function showCurrentWeather(response, event) {
 
   h1.innerHTML = response.data.name.toUpperCase();
   currentDegrees.innerHTML = temperature;
-  // conditions.innerHTML = response.data.weather[0].main;
   feelsLike.innerHTML = tempFeelsLike;
   windSpeed.innerHTML = response.data.wind.speed;
   humidity.innerHTML = response.data.main.humidity;
@@ -72,6 +52,74 @@ function showCurrentWeather(response, event) {
   lowestTempToday.innerHTML = tempLowerToday;
   document.querySelector("#description").innerHTML =
     response.data.weather[0].main;
+  if (response.data.weather[0].id == 800) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/sun.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your sunglasses";
+  }
+  if (
+    response.data.weather[0].id == 801 ||
+    response.data.weather[0].id == 802
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/few-clouds.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your sunscreen";
+  }
+  if (
+    response.data.weather[0].id == 803 ||
+    response.data.weather[0].id == 804
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/cloud.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your jacket";
+  }
+  if (
+    response.data.weather[0].id >= 500 &&
+    response.data.weather[0].id <= 531
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/rain.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your umbrella";
+  }
+  if (
+    response.data.weather[0].id >= 200 &&
+    response.data.weather[0].id <= 232
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/thunderstorm.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your umbrella";
+  }
+  if (
+    response.data.weather[0].id >= 300 &&
+    response.data.weather[0].id <= 321
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/fog.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Be careful on the road";
+  }
+  if (
+    response.data.weather[0].id >= 701 &&
+    response.data.weather[0].id <= 741
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/fog.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Be careful on the road";
+  }
+  if (
+    response.data.weather[0].id >= 600 &&
+    response.data.weather[0].id <= 622
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/snow.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML = "Keep warm";
+  }
 }
 function getSearchCity(event) {
   event.preventDefault();
@@ -105,6 +153,76 @@ function showWeather(response) {
   pressure.innerHTML = response.data.main.pressure;
   highestTempToday.innerHTML = tempHigherToday;
   lowestTempToday.innerHTML = tempLowerToday;
+  document.querySelector("#description").innerHTML =
+    response.data.weather[0].main;
+  if (response.data.weather[0].id == 800) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/sun.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your sunglasses";
+  }
+  if (
+    response.data.weather[0].id == 801 ||
+    response.data.weather[0].id == 802
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/few-clouds.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your sunscreen";
+  }
+  if (
+    response.data.weather[0].id == 803 ||
+    response.data.weather[0].id == 804
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/cloud.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your jacket";
+  }
+  if (
+    response.data.weather[0].id >= 500 &&
+    response.data.weather[0].id <= 531
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/rain.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your umbrella";
+  }
+  if (
+    response.data.weather[0].id >= 200 &&
+    response.data.weather[0].id <= 232
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/thunderstorm.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Don't forget your umbrella";
+  }
+  if (
+    response.data.weather[0].id >= 300 &&
+    response.data.weather[0].id <= 321
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/fog.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Be careful on the road";
+  }
+  if (
+    response.data.weather[0].id >= 701 &&
+    response.data.weather[0].id <= 741
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/fog.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML =
+      "Be careful on the road";
+  }
+  if (
+    response.data.weather[0].id >= 600 &&
+    response.data.weather[0].id <= 622
+  ) {
+    document.querySelector("#weather-icon-main").innerHTML =
+      '<img src="src/snow.png" width="60px">';
+    document.querySelector("#note-for-today").innerHTML = "Keep warm";
+  }
 }
 
 function retrievePosition(position) {
@@ -119,3 +237,22 @@ function getPosition() {
 }
 let geoButton = document.querySelector("#currentLocationIcon");
 geoButton.addEventListener("click", getPosition);
+
+// change degrees
+function temperatureConverter(event) {
+  event.preventDefault();
+  let fahrenheit = (currentDegrees * 9) / 5 + 32;
+  let currentDegrees = document.querySelector("#converting-value");
+  currentDegrees.innerHTML = fahrenheit;
+}
+let frDegree = document.querySelector("#degrees-fahrenheit");
+frDegree.addEventListener("click", temperatureConverter);
+
+function temperatureConverter2(event) {
+  event.preventDefault();
+
+  let currentDegrees = document.querySelector("#converting-value");
+  currentDegrees.innerHTML = currentDegrees;
+}
+let csDegree = document.querySelector("#degrees-celsius");
+csDegree.addEventListener("click", temperatureConverter2);
