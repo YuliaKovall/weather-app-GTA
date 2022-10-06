@@ -26,6 +26,27 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 0);
 
+// displays forecast
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = '<div class = "row">';
+  let days = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col weather-days">
+    <div class="forecast-day">${day}</div>
+    <img src="src/sun.png" width="40px"> <br>
+    <span class="forecast-temp-max">30</span>°/
+    <span class="forecast-temp-max">20</span>°
+    </div>
+`;
+  });
+  forecastHTML = forecastHTML + "</div>";
+  forecastElement.innerHTML = forecastHTML;
+}
+displayForecast();
 // shows current temperature in the city from search
 function showCurrentWeather(response, event) {
   console.log(response);
@@ -122,15 +143,18 @@ function showCurrentWeather(response, event) {
     document.querySelector("#note-for-today").innerHTML = "Keep warm";
   }
 }
-function getSearchCity(event) {
-  event.preventDefault();
+function getSearchCity(city) {
   let apiKey = "1e3dbdc7f40fe05d77910ebef7bfd128";
-  let citySearch = document.querySelector("#inputted-city");
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearch.value}&units=metric&appid=${apiKey}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(showCurrentWeather);
 }
-let searchForm = document.querySelector("#search-engine");
-searchForm.addEventListener("submit", getSearchCity, updateDateTime);
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#inputted-city");
+  getSearchCity(cityInputElement.value);
+}
+let form = document.querySelector("#search-engine");
+form.addEventListener("submit", handleSubmit);
 // shows temperature in current location
 function showWeather(response) {
   let h1 = document.querySelector("h1");
@@ -261,3 +285,5 @@ csDegree.addEventListener("click", displayCelciusTemperature);
 
 let frDegree = document.querySelector("#degrees-fahrenheit");
 frDegree.addEventListener("click", displayFarenheitTemperature);
+
+getSearchCity("kyiv");
