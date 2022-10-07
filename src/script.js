@@ -26,27 +26,80 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 0);
 
+// adds a day to forecast
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  return days[day];
+}
+
+// adds an image to forecast
+function getImage(conditionsID) {
+  console.log(conditionsID);
+  if (conditionsID == 800) {
+    return "src/sun.png";
+  }
+  if (conditionsID == 801 || conditionsID == 802) {
+    return "src/few-clouds.png";
+  }
+  if (conditionsID == 803 || conditionsID == 804) {
+    return "src/cloud.png";
+  }
+  if (conditionsID >= 500 && conditionsID <= 531) {
+    return "src/rain.png";
+  }
+  if (conditionsID >= 200 && conditionsID <= 232) {
+    return "src/thunderstorm.png";
+  }
+  if (conditionsID >= 300 && conditionsID <= 321) {
+    return "src/fog.png";
+  }
+  if (conditionsID >= 701 && conditionsID <= 741) {
+    return "src/fog.png";
+  }
+  if (conditionsID >= 600 && conditionsID <= 622) {
+    return "src/snow.png";
+  }
+}
 // displays forecast
-function displayForecast() {
+function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = '<div class = "row">';
-  let days = ["Friday", "Saturday", "Sunday", "Monday", "Tuesday"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
     <div class="col weather-days">
-    <div class="forecast-day">${day}</div>
-    <img src="src/sun.png" width="40px"> <br>
-    <span class="forecast-temp-max">30</span>°/
-    <span class="forecast-temp-max">20</span>°
+    <div class="forecast-day">${formatDay(forecastDay.dt)}</div>
+    <img src="${getImage(forecastDay.weather[0].id)}" width="40px"> <br>
+    <span class="forecast-temp-max">${Math.round(forecastDay.temp.max)}</span>°/
+    <span class="forecast-temp-max">${Math.round(forecastDay.temp.min)}</span>°
     </div>
 `;
+    }
   });
   forecastHTML = forecastHTML + "</div>";
   forecastElement.innerHTML = forecastHTML;
 }
-displayForecast();
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "5ef4de8cd6b7fefcd7c42f98cf464ce8";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
 // shows current temperature in the city from search
 function showCurrentWeather(response, event) {
   console.log(response);
@@ -142,6 +195,7 @@ function showCurrentWeather(response, event) {
       '<img src="src/snow.png" width="60px">';
     document.querySelector("#note-for-today").innerHTML = "Keep warm";
   }
+  getForecast(response.data.coord);
 }
 function getSearchCity(city) {
   let apiKey = "1e3dbdc7f40fe05d77910ebef7bfd128";
