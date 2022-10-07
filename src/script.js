@@ -305,11 +305,13 @@ function showWeather(response) {
 }
 
 function retrievePosition(position) {
-  let apiKey = "1e3dbdc7f40fe05d77910ebef7bfd128";
+  let apiKey = "5ef4de8cd6b7fefcd7c42f98cf464ce8";
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+  let urlForGeo = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(url).then(showWeather);
+  axios.get(urlForGeo).then(displayForecast);
 }
 function getPosition() {
   navigator.geolocation.getCurrentPosition(retrievePosition);

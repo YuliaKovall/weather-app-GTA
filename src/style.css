@@ -21,7 +21,7 @@ body {
   border: 1pt;
   border-color: rgb(48, 33, 0);
   border-radius: 10px;
-  max-width: 90%;
+  max-width: 85%;
   max-height: 900px;
   margin-top: 5%;
   margin: 0 auto;
@@ -75,12 +75,14 @@ h1 {
   color: #fa9eeb;
   text-shadow: 1px 1px 0 rgb(255, 255, 255);
   padding-top: 10px;
+  margin-left: 5%;
 }
 
 h2 {
   font-family: "Coda", cursive;
   color: #fa9eeb;
   text-shadow: 1px 1px 1px rgb(255, 195, 245);
+  margin-left: 5%;
 }
 .current-temperature {
   font-family: "Titillium Web", sans-serif;
